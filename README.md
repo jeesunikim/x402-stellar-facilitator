@@ -1,10 +1,10 @@
 # X402 Stellar Facilitator Service
 
-A facilitator service for the Stellar network, similar to Coinbase's X402 facilitator but designed specifically for Stellar transactions.
+A x402 facilitator service for the Stellar network
 
 ## Overview
 
-This service implements the [x402 payment protocol](https://github.com/coinbase/x402) for the Stellar network. It provides three main endpoints for facilitating x402 payments:
+This service implements the [x402 payment protocol's Facilitator](https://github.com/coinbase/x402/blob/main/typescript/packages/x402/src/types/verify/x402Specs.ts) for the Stellar network. It provides three main endpoints for facilitating x402 payments:
 
 - **`/verify`** - Verifies a payment according to x402 spec
 - **`/settle`** - Settles a payment and submits it to the Stellar network
@@ -12,7 +12,7 @@ This service implements the [x402 payment protocol](https://github.com/coinbase/
 
 ## Features
 
-- ✅ Facilitator x402 payment protocol implementation for Stellar
+- ✅ x402 payment protocol facilitator implementation for Stellar
 - ✅ Zod schema validation for all requests and responses
 - ✅ Support for Stellar testnet and mainnet
 - ✅ Exact payment scheme support
