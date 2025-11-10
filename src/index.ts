@@ -15,6 +15,7 @@ import {
   SettleRequestSchema,
   SupportedPaymentKindsResponse,
 } from "./types";
+import { submitTransaction } from "./stellar";
 
 // Load environment variables
 dotenv.config();
@@ -147,12 +148,28 @@ app.post("/settle", async (req: Request, res: Response) => {
       } as SettleResponse);
     }
 
-    // TODO: Submit the transaction to Stellar network using paymentPayload.payload
-    // For now, return a mock successful response
+    // Map network names
+    const stellarNetwork = paymentPayload.network === "stellar-mainnet" ? "mainnet" : "testnet";
+
+    // Submit the transaction to Stellar network
+    const submissionResult = await submitTransaction(
+      paymentPayload.payload.invokeHostOpXDR,
+      stellarNetwork
+    );
+
+    if (!submissionResult.success) {
+      return res.status(400).json({
+        success: false,
+        errorReason: "unexpected_settle_error",
+        transaction: paymentPayload.payload.invokeHostOpXDR,
+        network: paymentPayload.network,
+      } as SettleResponse);
+    }
+
     return res.json({
       success: true,
-      payer: paymentRequirements.payTo, // This should be extracted from the transaction
-      transaction: paymentPayload.payload.invokeHostOpXDR, // Return the transaction XDR
+      payer: paymentRequirements.payTo, // This should be extracted from the actual transaction
+      transaction: paymentPayload.payload.invokeHostOpXDR,
       network: paymentPayload.network,
     } as SettleResponse);
   } catch (error: any) {
