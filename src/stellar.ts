@@ -14,9 +14,9 @@ export function getStellarRpcServer(
   network: "testnet" | "mainnet" = "testnet"
 ): StellarRpc.Server {
   if (network === "mainnet") {
-    return new StellarRpc.Server("https://horizon.stellar.org");
+    return new StellarRpc.Server("https://mainnet.sorobanrpc.com");
   }
-  return new StellarRpc.Server("https://horizon-testnet.stellar.org");
+  return new StellarRpc.Server("https://soroban-testnet.stellar.org");
 }
 
 export async function verifyTransaction(
