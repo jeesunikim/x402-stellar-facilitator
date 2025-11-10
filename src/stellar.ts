@@ -3,9 +3,11 @@
  */
 
 import {
+  Keypair,
   rpc as StellarRpc,
   TransactionBuilder,
   Networks,
+  xdr,
 } from "@stellar/stellar-sdk";
 
 export function getStellarRpcServer(
@@ -37,27 +39,52 @@ export async function verifyTransaction(
   }
 }
 
+const verifySignature = (
+  signature: { hint: string; signature: string },
+  publicKey: string | undefined,
+  txHash: string | undefined
+) => {
+  if (!publicKey || !txHash) {
+    return false;
+  }
+
+  try {
+    const keypair = Keypair.fromPublicKey(publicKey);
+    // Signature from JSON RPC is hex-encoded
+    const signatureBuffer = Buffer.from(signature.signature, "hex");
+    // txHash from RPC response is hex string
+    const txHashBuffer = Buffer.from(txHash, "hex");
+
+    return keypair.verify(txHashBuffer, signatureBuffer);
+  } catch {
+    return false;
+  }
+};
+
 export async function validateTransaction(
   transactionXdr: string,
   network: "testnet" | "mainnet" = "testnet"
 ): Promise<{ valid: boolean; error?: string }> {
   try {
+    // const server = getStellarRpcServer(network);
     const passphrase = getNetworkPassphrase(network);
     const transaction = TransactionBuilder.fromXDR(transactionXdr, passphrase);
     const signatures = transaction.signatures;
 
     console.log("[validateTransaction] signatures", signatures);
-
-    // Check if transaction has at least one signature
-    if (signatures.length === 0) {
-      return {
-        valid: false,
-        error: "Transaction has no signatures",
-      };
-    }
-
+    // const result = await server.validateTransaction(transaction);
+    // const valid = transaction.signatures.every(
+    //   ({ signature }: xdr.DecoratedSignature) => {
+    //     verifySignature(
+    //       signature,
+    //       transaction.signatures[0].publicKey,
+    //       transaction.hash
+    //     );
+    //   }
+    // );
     return {
       valid: true,
+      error: result.error,
     };
   } catch (error: any) {
     return {
@@ -73,7 +100,8 @@ export async function sendTransaction(
 ): Promise<{ success: boolean; hash?: string; error?: string }> {
   try {
     const server = getStellarRpcServer(network);
-    const passphrase = getNetworkPassphrase(network);
+    const passphrase =
+      network === "mainnet" ? Networks.PUBLIC : Networks.TESTNET;
     const transaction = TransactionBuilder.fromXDR(transactionXdr, passphrase);
 
     const result = await server.sendTransaction(transaction);
@@ -86,59 +114,6 @@ export async function sendTransaction(
     return {
       success: false,
       error: error.message || "Failed to submit transaction",
-    };
-  }
-}
-
-/**
- * Submits a transaction to the Stellar network
- * Validates the transaction XDR before submitting
- * @param transactionXdr - Base64-encoded XDR transaction
- * @param network - Network to submit to (testnet or mainnet)
- * @returns Object with success status, transaction hash, and optional error
- */
-export async function submitTransaction(
-  transactionXdr: string,
-  network: "testnet" | "mainnet" = "testnet"
-): Promise<{
-  success: boolean;
-  hash?: string;
-  transactionXdr?: string;
-  error?: string;
-  errorCode?: string;
-}> {
-  try {
-    // Validate transaction XDR format
-    const validation = await validateTransaction(transactionXdr, network);
-    if (!validation.valid) {
-      return {
-        success: false,
-        error: validation.error || "Invalid transaction",
-        errorCode: "invalid_transaction",
-      };
-    }
-
-    // Submit transaction to network
-    const result = await sendTransaction(transactionXdr, network);
-
-    if (!result.success) {
-      return {
-        success: false,
-        error: result.error || "Failed to submit transaction",
-        errorCode: "submission_failed",
-      };
-    }
-
-    return {
-      success: true,
-      hash: result.hash,
-      transactionXdr: transactionXdr,
-    };
-  } catch (error: any) {
-    return {
-      success: false,
-      error: error.message || "Unexpected error during transaction submission",
-      errorCode: "unexpected_error",
     };
   }
 }

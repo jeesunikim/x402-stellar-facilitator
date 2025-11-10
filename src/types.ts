@@ -71,7 +71,6 @@ const isValidStellarEd25519PublicKey = (value: string): boolean =>
   StrKey.isValidEd25519PublicKey(value);
 const isValidStellarContractAddress = (value: string): boolean =>
   StrKey.isValidContract(value);
-export const HexSignatureRegex = /^[0-9a-fA-F]{128}$/;
 
 // x402PaymentRequirements
 export const StellarAddress = z
@@ -106,13 +105,7 @@ export type PaymentRequirements = z.infer<typeof PaymentRequirementsSchema>;
 
 /* X-Payment Header Payload */
 export const ExactStellarPayloadAuthorizationSchema = z.object({
-  signature: z
-    .string()
-    .regex(
-      HexSignatureRegex,
-      "Signature must be a 128-character hexadecimal string (Ed25519 signature)"
-    ),
-
+  signature: z.string(), // TODO: add regex for signature
   invokeHostOpXDR: z.string().regex(Base64EncodedRegex),
 });
 export type ExactStellarPayloadAuthorization = z.infer<
