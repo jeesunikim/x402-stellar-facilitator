@@ -12,7 +12,7 @@ This service implements the [x402 payment protocol](https://github.com/coinbase/
 
 ## Features
 
-- ✅ Full x402 payment protocol Facilitator implementation for Stellar
+- ✅ Facilitator x402 payment protocol implementation for Stellar
 - ✅ Zod schema validation for all requests and responses
 - ✅ Support for Stellar testnet and mainnet
 - ✅ Exact payment scheme support
@@ -92,7 +92,7 @@ Verifies a payment according to the x402 spec. Validates the payment payload and
     "scheme": "exact",
     "network": "stellar-testnet",
     "payload": {
-      "signature": "MEUCIQD5VqPHD9x/xj5vGfLSGJHN8lMZBF7wQ8YH/KpX2qG4wIgYEKFJ3c8vL5tQy7rN2pM4sH6fT9jW3nB1kC5xE8A=",
+      "signature": "dbbf359a03dcfa9117e85892fecb90971652a531b4db3e7965f1fc7e871f799ef594f3b86a62a3b5a5ae0bc21ccf077bfaf15948eb685e9ee527a5005596ca04",
       "invokeHostOpXDR": "AAAAAgAAAADKBZBfN0sKlKKXLqxlEPLp7Fz2a9XqwQKlBqcHPzQqaAAAAGQAAOzoAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA"
     }
   },
@@ -104,8 +104,8 @@ Verifies a payment according to the x402 spec. Validates the payment payload and
     "mimeType": "application/json",
     "maxTimeoutSeconds": 3600,
     "maxAmountRequired": "1000000",
-    "payTo": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG",
-    "asset": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG"
+    "payTo": "GCQH2A2MCCW4TU5HKRTP35J2X4V2ZUMTCU75MRULENCFIUIKS4PJ7HHJ",
+    "asset": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA"
   }
 }
 ```
@@ -115,7 +115,7 @@ Verifies a payment according to the x402 spec. Validates the payment payload and
 ```json
 {
   "isValid": true,
-  "payer": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG"
+  "payer": "GA42TVHEH5ZR2O3QB5WZ6JY2G6MCX326WC2O2CJC5UIRCUMDL5S4HPT3J"
 }
 ```
 
@@ -149,8 +149,8 @@ Settles a payment according to the x402 spec. Submits the transaction to the Ste
     "scheme": "exact",
     "network": "stellar-testnet",
     "payload": {
-      "signature": "MEUCIQD5VqPHD9x/xj5vGfLSGJHN8lMZBF7wQ8YH/KpX2qG4wIgYEKFJ3c8vL5tQy7rN2pM4sH6fT9jW3nB1kC5xE8A=",
-      "invokeHostOpXDR": "AAAAAgAAAADKBZBfN0sKlKKXLqxlEPLp7Fz2a9XqwQKlBqcHPzQqaAAAAGQAAOzoAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA"
+      "signature": "dbbf359a03dcfa9117e85892fecb90971652a531b4db3e7965f1fc7e871f799ef594f3b86a62a3b5a5ae0bc21ccf077bfaf15948eb685e9ee527a5005596ca04",
+      "invokeHostOpXDR": "AAAAAgAAAAA5qdTkP3MdO3APbZ8nGjeYK+9esLTtCSLtERFRg19lwwABblIAFxG2AAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAGAAAAAAAAAABUEXNXsBymnaP1a0CUFhS308Cjc6DDlrFIgm6SEg7LwEAAAAIdHJhbnNmZXIAAAADAAAAEgAAAAAAAAAAOanU5D9zHTtwD22fJxo3mCvvXrC07Qki7RERUYNfZcMAAAASAAAAAAAAAACgfQNMEK3J06dUZv31Or8rrNGTFT/WRosjRFRRCpcenwAAAAoAAAAAAAAAAAAAAAAAAAAUAAAAAQAAAAAAAAAAAAAAAVBFzV7Acpp2j9WtAlBYUt9PAo3Ogw5axSIJukhIOy8BAAAACHRyYW5zZmVyAAAAAwAAABIAAAAAAAAAADmp1OQ/cx07cA9tnycaN5gr716wtO0JIu0REVGDX2XDAAAAEgAAAAAAAAAAoH0DTBCtydOnVGb99Tq/K6zRkxU/1kaLI0RUUQqXHp8AAAAKAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAABAAAAAAAAAAEAAAAGAAAAAVBFzV7Acpp2j9WtAlBYUt9PAo3Ogw5axSIJukhIOy8BAAAAFAAAAAEAAAACAAAAAQAAAAA5qdTkP3MdO3APbZ8nGjeYK+9esLTtCSLtERFRg19lwwAAAAFVU0RDAAAAAEI+fQXy7K+/7BkrIVo/G+lq7bjY5wJUq+NBPgIH3layAAAAAQAAAACgfQNMEK3J06dUZv31Or8rrNGTFT/WRosjRFRRCpcenwAAAAFVU0RDAAAAAEI+fQXy7K+/7BkrIVo/G+lq7bjY5wJUq+NBPgIH3layAAQTzQAAAOgAAADoAAAAAAABbYoAAAAA"
     }
   },
   "paymentRequirements": {
@@ -161,8 +161,8 @@ Settles a payment according to the x402 spec. Submits the transaction to the Ste
     "mimeType": "application/json",
     "maxTimeoutSeconds": 3600,
     "maxAmountRequired": "1000000",
-    "payTo": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG",
-    "asset": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG"
+    "payTo": "GCQH2A2MCCW4TU5HKRTP35J2X4V2ZUMTCU75MRULENCFIUIKS4PJ7HHJ",
+    "asset": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA" // USDC Contract
   }
 }
 ```
@@ -172,7 +172,7 @@ Settles a payment according to the x402 spec. Submits the transaction to the Ste
 ```json
 {
   "success": true,
-  "payer": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG",
+  "payer": "GA42TVHEH5ZR2O3QB5WZ6JY2G6MCX326WC2O2CJC5UIRCUMDL5S4HPT3",
   "transaction": "AAAAAgAAAADKBZBfN0sKlKKXLqxlEPLp7Fz2a9XqwQKlBqcHPzQqaAAAAGQAAOzoAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA",
   "network": "stellar-testnet"
 }
@@ -228,7 +228,7 @@ curl -X POST http://localhost:3000/verify \
     "scheme": "exact",
     "network": "stellar-testnet",
     "payload": {
-      "signature": "MEUCIQD5VqPHD9x/xj5vGfLSGJHN8lMZBF7wQ8YH/KpX2qG4wIgYEKFJ3c8vL5tQy7rN2pM4sH6fT9jW3nB1kC5xE8A=",
+      "signature": "dbbf359a03dcfa9117e85892fecb90971652a531b4db3e7965f1fc7e871f799ef594f3b86a62a3b5a5ae0bc21ccf077bfaf15948eb685e9ee527a5005596ca04",
       "invokeHostOpXDR": "AAAAAgAAAADKBZBfN0sKlKKXLqxlEPLp7Fz2a9XqwQKlBqcHPzQqaAAAAGQAAOzoAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA"
     }
   },
@@ -240,8 +240,8 @@ curl -X POST http://localhost:3000/verify \
     "mimeType": "application/json",
     "maxTimeoutSeconds": 3600,
     "maxAmountRequired": "1000000",
-    "payTo": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG",
-    "asset": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG"
+    "payTo": "GCQH2A2MCCW4TU5HKRTP35J2X4V2ZUMTCU75MRULENCFIUIKS4PJ7HHJ",
+    "asset": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA"
   }
 }'
 ```
@@ -257,7 +257,7 @@ curl -X POST http://localhost:3000/settle \
     "scheme": "exact",
     "network": "stellar-testnet",
     "payload": {
-      "signature": "MEUCIQD5VqPHD9x/xj5vGfLSGJHN8lMZBF7wQ8YH/KpX2qG4wIgYEKFJ3c8vL5tQy7rN2pM4sH6fT9jW3nB1kC5xE8A=",
+      "signature": "dbbf359a03dcfa9117e85892fecb90971652a531b4db3e7965f1fc7e871f799ef594f3b86a62a3b5a5ae0bc21ccf077bfaf15948eb685e9ee527a5005596ca04",
       "invokeHostOpXDR": "AAAAAgAAAADKBZBfN0sKlKKXLqxlEPLp7Fz2a9XqwQKlBqcHPzQqaAAAAGQAAOzoAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA"
     }
   },
@@ -269,8 +269,8 @@ curl -X POST http://localhost:3000/settle \
     "mimeType": "application/json",
     "maxTimeoutSeconds": 3600,
     "maxAmountRequired": "1000000",
-    "payTo": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG",
-    "asset": "GDVDKQFP665JAO7A2LSHNLQIUNYNAAIGJ6FYJVMG4DT3YJQQJSRBLQDG"
+    "payTo": "GCQH2A2MCCW4TU5HKRTP35J2X4V2ZUMTCU75MRULENCFIUIKS4PJ7HHJ",
+    "asset": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA"
   }
 }'
 ```
